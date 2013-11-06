@@ -1,0 +1,19 @@
+{ "filters" : [
+	{
+		"name": "default",
+		"excluded_metrics": [
+			"^cpu\\.[0-9]",
+			"tcpconns.*(FIN_WAIT|CLOSED|LAST_ACK|CLOSING)"
+		],
+		"environments": "/.*/",
+		"clusters": "/.*/"
+	},
+	{
+		"name": "db_server",
+		"excluded_metrics": [
+			"^disk\\.sd"
+		],
+		"environments": "/.*/",
+		"clusters": "/^(dbslaves|dbmasters)$/"
+	}
+] }

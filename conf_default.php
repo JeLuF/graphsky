@@ -9,6 +9,13 @@ $conf['graph_template_dir'] = $base_dir . "/graph.d";
 $conf['graph_domainname'] = "http://" . $conf['dashboard_domainname'];
 $conf['use_random_graph_domainname'] = True;
 $conf['host_metric_group_depth'] = 2;
+
+# Metric filter
+# If set to true, metrics matching the filter rules will not be shown
+# in the host view. Define filters in filters.json
+$conf['enable_filter'] = False;
+$conf['filter_config'] = $base_dir . "/filters.json";
+
 # If you have your metrics for an entire cluster stored seperately,
 # specify that "hostname" here.
 # For example, Ganglia uses __SummaryInfo__
