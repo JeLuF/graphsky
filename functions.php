@@ -232,6 +232,23 @@ function show_on_dashboard($report_name, $environment, $cluster) {
 function find_metrics($search_string, $group_depth=0) {
     global $conf;
 
+    #---- Init Filter
+    $filter = array();
+    if ( $conf['enable_filter'] ) {
+	$filter_config = json_decode(file_get_contents($conf['filter_config']), TRUE);
+	foreach ( $filter_config['filters'] as $f ) {
+	    if (! preg_match($f['environments'], $environment) ) {
+		continue;
+	    }
+	    if (! preg_match($f['clusters'], $cluster)){
+		continue;
+	    }
+	    foreach ( $f['excluded_metrics'] as $rule ) {
+		$filter[] = $rule;
+	    }
+	}
+	$filter_rule = "/(" . join( "|", $filter ) . ")/";
+    }
     $metrics = array();
     $search_url = $conf['graphite_url_base'] . "/metrics/expand/?leavesOnly=1";
     $search_prefix = quotemeta($conf['graphite_prefix'] . $search_string);
@@ -256,9 +273,13 @@ function find_metrics($search_string, $group_depth=0) {
         $metric_string = preg_replace("/^$search_prefix\./", "", $metric);
         $arr = explode('.',trim($metric_string));
         $metric_group = join(".", array_slice($arr, 0, $group_depth));
-        if (!isset($metrics[$metric_group]) )
-            $metrics[$metric_group] = array();
-        array_push($metrics[$metric_group], $metric_string);
+	if ( ! $conf['enable_filter'] 
+	    || ! preg_match( $filter_rule, $metric_string ) )
+	{
+            if (!isset($metrics[$metric_group]) )
+                $metrics[$metric_group] = array();
+            array_push($metrics[$metric_group], $metric_string);
+	}
     }
 
     curl_close($ch);
