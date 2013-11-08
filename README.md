@@ -37,9 +37,9 @@ By default, the host view shows the dashboard graphs and graphs for each metric.
 add graphs to the list that display multiple metrics in one graph, e.g. by combining the disk free, disk used
 and disk reserved metric graphs into one overview graph.
 ![Sample view](https://raw.github.com/JeLuF/graphsky/fancy-metrics/img/metric_groups.png)
-Metric groups can be defined in metric_groups.json. The graph definition uses two variables, __P1__ and __P2__, that will
+<p>Metric groups can be defined in metric_groups.json. The graph definition uses two variables, __P1__ and __P2__, that will
 be replaced by the first two parts of the metric name, e.g. __P1__ gets replaced by "df" and __P2__ gets replaced by "var"
-for the metrics df.var.*
+for the metrics df.var.*</p>
 
 ## Nagios/Icinga/Icinga-web integration
 
