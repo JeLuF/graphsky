@@ -139,22 +139,9 @@ header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");   // Date in the past
 header ("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
 header ("Cache-Control: no-cache, must-revalidate");   // HTTP/1.1
 header ("Pragma: no-cache");                     // HTTP/1.0
-<<<<<<< HEAD
 header ("Content-type: image/png");
 
 ob_clean(); flush();
 if ( readfile( $graphite_url ) === False ) {
     error_log( "Image creation error, Graphite URL $graphite_url" );
-=======
-header ("Debug: $graphite_url");
-
-error_log( $graphite_url );
-if ($im = @imagecreatefrompng($graphite_url)) {
-    header ("Content-type: image/png");
-    imagepng($im, NULL, 9);
-    imagedestroy($im);
-} else {
-    echo "<h1>Image creation error</h1>";
-    echo '<p>Graphite URL: <a href="' . $graphite_url . '">' . $graphite_url . '</a></p>';
->>>>>>> remotes/origin/fancy-metrics
 }
