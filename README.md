@@ -32,6 +32,15 @@ Just copy conf_default.php to conf.php or create a new file in which you only ov
 * **graphite_url_base**: Specify the base URL for you Graphite webinterface here.
 * **graphite_prefix**: Use this setting to specify a generic prefix of the metrics you'd like to graph. In case of Collectd metrics, this would be the same as the 'Prefix' option of the write_grapghite plugin for Collectd.
 
+### Combined graphs in the host view
+By default, the host view shows the dashboard graphs and graphs for each metric. With metric groups you can
+add graphs to the list that display multiple metrics in one graph, e.g. by combining the disk free, disk used
+and disk reserved metric graphs into one overview graph.
+![Sample view](https://raw.github.com/JeLuF/graphsky/master/img/metric_groups.png)
+Metric groups can be defined in metric_groups.json. The graph definition uses two variables, __P1__ and __P2__, that will
+be replaced by the first two parts of the metric name, e.g. __P1__ gets replaced by "df" and __P2__ gets replaced by "var"
+for the metrics df.var.*
+
 ## Nagios/Icinga/Icinga-web integration
 
 Integrate your graphs in your monitoring tool by including a graph.php link:

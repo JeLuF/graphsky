@@ -1,0 +1,13 @@
+{ "metric_groups" : [
+	{
+		"name": "Diskspace",
+		"metric_group": "df",
+		"graph": "m-disk"
+	},
+	{
+		"name": "Disk I/O",
+		"metric_group": "disk",
+		"graph": "m-disk-io"
+	}
+    ]
+}

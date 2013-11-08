@@ -1,0 +1,12 @@
+{
+    "report_name" : "m-disk",
+    "service_name" : "Disk_space",
+    "title" : "Disk space",
+    "vertical_label" : "bytes",
+    "units": "binary",
+    "series" : [
+        { "metric": "__P1__.__P2__.df_complex.used.value", "color": "dd0000", "label": "Used", "type": "stack" },
+        { "metric": "__P1__.__P2__.df_complex.reserved.value", "color": "3333dd", "label": "Reserved", "type": "stack" },
+        { "metric": "__P1__.__P2__.df_complex.free.value", "color": "33cc33", "label": "Free", "type": "stack" }
+    ]
+}

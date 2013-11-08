@@ -14,6 +14,8 @@ $puppetrun      = isset($_GET['pr']) ? sanitize($_GET['pr']) : NULL;
 $setmax         = isset($_GET['l']) ? $_GET['l'] : "no";
 $env            = isset($_GET['env']) ? $_GET['env'] : $conf['graphite_default_env'];
 $host           = isset($_GET['h']) ? $_GET['h'] : $conf['cluster_hostname'];
+$p1             = isset($_GET['p1']) ? $_GET['p1'] : "";
+$p2             = isset($_GET['p2']) ? $_GET['p2'] : "";
 $graph = isset($_GET['g'])  ?  sanitize ( $_GET['g'] )   : "metric";
 
 $graph_arguments = NULL;
@@ -99,7 +101,11 @@ if ( isset($report_name) ) {
             }
         }
         else {
-                    $target = build_graphite_series( $graph_config, $conf['graphite_prefix'] . "$host_cluster" );
+            $target = build_graphite_series( $graph_config, $conf['graphite_prefix'] . "$host_cluster" );
+	    if ( $config["metric_groups_enable"] ) {
+                $target = str_replace( array( "__P1__", "__P2__" ),
+				       array( $p1, $p2 ), $target );
+	    }
         }
 
         $title = $title_prefix . " - " . $graph_config['title'];
@@ -133,7 +139,9 @@ header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");   // Date in the past
 header ("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
 header ("Cache-Control: no-cache, must-revalidate");   // HTTP/1.1
 header ("Pragma: no-cache");                     // HTTP/1.0
+header ("Debug: $graphite_url");
 
+error_log( $graphite_url );
 if ($im = @imagecreatefrompng($graphite_url)) {
     header ("Content-type: image/png");
     imagepng($im, NULL, 9);
