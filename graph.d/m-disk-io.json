@@ -1,0 +1,11 @@
+{
+    "report_name" : "m-disk-io",
+    "service_name" : "Disk_IO",
+    "title" : "Disk I/O",
+    "vertical_label" : "bytes",
+    "units": "binary",
+    "series" : [
+        { "metric": "__P1__.__P2__.disk_octets.write", "color": "00dd00", "label": "Write", "type": "stack" },
+        { "metric": "__P1__.__P2__.disk_octets.read", "color": "3333dd", "label": "Read", "type": "line" }
+    ]
+}
