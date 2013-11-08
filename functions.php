@@ -283,8 +283,6 @@ function find_metrics($search_string, $group_depth=0) {
                 $metrics[$metric_group] = array();
             $metrics[$metric_group][] = $metric_string;
 	}
-        if (!isset($metrics[$metric_group]) )
-            $metrics[$metric_group] = array();
     }
 
     curl_close($ch);
